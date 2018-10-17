@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace DrawingToolkit
 {
-    public class RectangleTool : Tool
+    public class RectangleTool : DrawingTool
     {
-        public RectangleTool(DrawingCanvas canvas) : base(canvas)
-        {
+        public RectangleTool(DrawingCanvas canvas) : base(canvas){
 
         }
 

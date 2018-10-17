@@ -14,8 +14,9 @@ namespace DrawingToolkit
         private bool _isActive;
 
         protected DrawingCanvas drawingCanvas;
-        protected DrawingObject drawingObject;
-
+        protected Action OnActive;
+        protected Action OnInactive;
+        
         public Tool(DrawingCanvas canvas) {
             drawingCanvas = canvas;
             MouseDown += Tool_MouseDown;
@@ -35,30 +36,24 @@ namespace DrawingToolkit
                         drawingCanvas.ActiveTool.IsActive = false;
                     }
                     drawingCanvas.ActiveTool = this;
+                    OnActive?.Invoke();
                 } else {
                     BackColor = Color.Gainsboro;
-                    ClearDrawable();
+                    OnInactive?.Invoke();
                 }
             }
         }
 
         public virtual void MouseInit(int x, int y) {
-            drawingObject.StartPosition(x, y);
+
         }
 
-        public void MouseUpdate(int x, int y)
-        {
-            if (drawingObject != null) {
-                drawingObject.UpdatePosition(x, y);
-            }
+        public virtual void MouseUpdate(int x, int y){
+
         }
 
-        public DrawingObject GetDrawable() {
-            return drawingObject;
-        }
+        public virtual void MouseEnd(int x, int y) {
 
-        private void ClearDrawable() {
-            drawingObject = null;
         }
         
     }

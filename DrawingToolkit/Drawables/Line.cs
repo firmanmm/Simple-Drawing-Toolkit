@@ -12,26 +12,7 @@ namespace DrawingToolkit
     /// </summary>
     public class Line : DrawingObject
     {
-        private Point _start;
-        private Point _end;
 
-        public Point Start {
-            get { return _start; }
-            set {
-                if ((_start = value) == null) {
-                    _start = new Point(0, 0);
-                }
-            }
-        }
-
-        public Point End {
-            get { return _end; }
-            set {
-                if ((_end = value) == null) {
-                    _end = new Point(0, 0);
-                }
-            }
-        }
 
         public override void StartPosition(int x, int y)
         {
@@ -45,8 +26,13 @@ namespace DrawingToolkit
             _end.Y = y;
         }
 
-        public override void Draw(Graphics graphics,Pen pen) {
+        protected override void DrawGraphic(Graphics graphics,Pen pen) {
             graphics.DrawLine(pen, _start, _end);
+        }
+
+        public override bool IsIntersect(int x, int y)
+        {
+            return Math.Abs((x - _start.X) * (_end.Y - _start.Y) - (y - _start.Y) * (_end.X - _start.X)) < 5000 && base.IsIntersect(x,y); 
         }
     }
 }

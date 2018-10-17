@@ -70,7 +70,13 @@
     <Compile Include="Tool\ClearTool.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Tool\DrawingTool.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Tool\LineTool.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Tool\PointerTool.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Tool\RectangleTool.cs">
@@ -90,6 +96,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -107,7 +114,9 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="Sprite\circle.png" />
+    <None Include="Sprite\clear.png" />
     <Content Include="Sprite\line.png" />
+    <None Include="Sprite\pointer.png" />
     <Content Include="Sprite\rectangle.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

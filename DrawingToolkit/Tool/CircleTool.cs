@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DrawingToolkit
 {
-    public class CircleTool : Tool
+    public class CircleTool : DrawingTool
     {
         public CircleTool(DrawingCanvas canvas) : base(canvas) {
             

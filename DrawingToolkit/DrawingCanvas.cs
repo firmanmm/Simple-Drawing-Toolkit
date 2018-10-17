@@ -16,7 +16,7 @@ namespace DrawingToolkit
         public Tool ActiveTool { get; set;}
 
         private LinkedList<DrawingObject> drawables;
-        private Pen pen;
+        private readonly Pen pen;
 
         public DrawingCanvas() {
             SetStyle(ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
@@ -30,21 +30,17 @@ namespace DrawingToolkit
         private void DrawingCanvas_MouseUp(object sender, MouseEventArgs e)
         {
             if (ActiveTool != null) {
-                ActiveTool.MouseUpdate(e.X, e.Y);
+                ActiveTool.MouseEnd(e.X, e.Y);
                 Invalidate();
-                ActiveTool.IsActive = false;
             }
-            ActiveTool = null;
         }
 
         private void DrawingCanvas_MouseDown(object sender, MouseEventArgs e)
         {
             if (ActiveTool != null) {
                 ActiveTool.MouseInit(e.X, e.Y);
-                drawables.AddLast(ActiveTool.GetDrawable());
             }
         }
-
 
         private void DrawingCanvas_MouseMove(object sender, MouseEventArgs e)
         {
@@ -52,6 +48,10 @@ namespace DrawingToolkit
                 ActiveTool.MouseUpdate(e.X, e.Y);
                 Invalidate();
             }
+        }
+
+        public void AddDrawable(DrawingObject drawable) {
+            drawables.AddLast(drawable);
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -65,6 +65,18 @@ namespace DrawingToolkit
         public void Clear() {
             drawables.Clear();
             Invalidate();
+        }
+
+        public DrawingObject GetLastIntersection(int x,int y)
+        {
+            LinkedListNode<DrawingObject> iter = drawables.Last;
+            while (iter != null) {
+                if (iter.Value.IsIntersect(x, y)) {
+                    return iter.Value;
+                }
+                iter = iter.Previous;
+            }
+            return null;
         }
     }
 }

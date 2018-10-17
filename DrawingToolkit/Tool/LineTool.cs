@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace DrawingToolkit
 {
-    public class LineTool : Tool
+    public class LineTool : DrawingTool
     {
         public LineTool(DrawingCanvas canvas) : base(canvas) {
             
