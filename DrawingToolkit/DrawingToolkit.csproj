@@ -76,6 +76,9 @@
     <Compile Include="Tool\LineTool.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Tool\MinusTool.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Tool\PointerTool.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -117,6 +120,7 @@
     <None Include="Sprite\clear.png" />
     <Content Include="Sprite\line.png" />
     <None Include="Sprite\pointer.png" />
+    <None Include="Sprite\minus.png" />
     <Content Include="Sprite\rectangle.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

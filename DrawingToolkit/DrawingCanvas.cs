@@ -78,5 +78,15 @@ namespace DrawingToolkit
             }
             return null;
         }
+
+        public void DeleteLastIntersection(int x, int y) {
+            LinkedListNode<DrawingObject> iter = drawables.Last;
+            while (iter != null) {
+                if (iter.Value.IsIntersect(x, y)) {
+                    drawables.Remove(iter);
+                }
+                iter = iter.Previous;
+            }
+        }
     }
 }

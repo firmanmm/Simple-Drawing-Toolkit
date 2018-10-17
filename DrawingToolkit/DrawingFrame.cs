@@ -4,16 +4,17 @@ namespace DrawingToolkit
 {
     public partial class DrawingFrame : Frame
     {
-        private Tool lineTool;
-        private Tool circleTool;
-        private Tool rectangleTool;
-        private Tool clearTool;
-        private Tool pointerTool;
+        private LineTool lineTool;
+        private CircleTool circleTool;
+        private RectangleTool rectangleTool;
+        private ClearTool clearTool;
+        private PointerTool pointerTool;
+        private MinusTool minusTool;
         private ToolStrip toolbar;
         
         private System.IO.FileSystemWatcher fileSystemWatcher1;
+        
         private DrawingCanvas drawingCanvas;
-
 
         #region Windows Form Designer generated code
 
@@ -25,29 +26,13 @@ namespace DrawingToolkit
             this.rectangleTool = new RectangleTool(drawingCanvas);
             this.clearTool = new ClearTool(drawingCanvas);
             this.pointerTool = new PointerTool(drawingCanvas);
+            this.minusTool = new MinusTool(drawingCanvas);
 
             this.toolbar = new System.Windows.Forms.ToolStrip();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
             this.toolbar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // toolbar
-            // 
-            this.toolbar.BackColor = System.Drawing.Color.Gainsboro;
-            this.toolbar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolbar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.pointerTool,
-            this.lineTool,
-            this.circleTool,
-            this.rectangleTool,
-            this.clearTool});
-            this.toolbar.Location = new System.Drawing.Point(0, 0);
-            this.toolbar.Name = "toolbar";
-            this.toolbar.Size = new System.Drawing.Size(800, 25);
-            this.toolbar.Stretch = true;
-            this.toolbar.TabIndex = 0;
-            this.toolbar.Text = "Toolbar";
             // 
             // drawingCanvas
             // 
@@ -60,6 +45,7 @@ namespace DrawingToolkit
             // 
             // lineTool
             // 
+            this.lineTool.BackColor = System.Drawing.Color.Gainsboro;
             this.lineTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.lineTool.Image = global::DrawingToolkit.Properties.Resources.line;
             this.lineTool.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -70,6 +56,7 @@ namespace DrawingToolkit
             // 
             // circleTool
             // 
+            this.circleTool.BackColor = System.Drawing.Color.Gainsboro;
             this.circleTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.circleTool.Image = global::DrawingToolkit.Properties.Resources.circle;
             this.circleTool.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -80,6 +67,7 @@ namespace DrawingToolkit
             // 
             // rectangleTool
             // 
+            this.rectangleTool.BackColor = System.Drawing.Color.Gainsboro;
             this.rectangleTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.rectangleTool.Image = global::DrawingToolkit.Properties.Resources.rectangle;
             this.rectangleTool.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -90,6 +78,7 @@ namespace DrawingToolkit
             // 
             // clearTool
             // 
+            this.clearTool.BackColor = System.Drawing.Color.Gainsboro;
             this.clearTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.clearTool.Image = global::DrawingToolkit.Properties.Resources.clear;
             this.clearTool.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -98,19 +87,48 @@ namespace DrawingToolkit
             this.clearTool.Size = new System.Drawing.Size(23, 22);
             this.clearTool.Text = "Clear All Drawing";
             // 
+            // pointerTool
+            // 
+            this.pointerTool.BackColor = System.Drawing.Color.Gainsboro;
+            this.pointerTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.pointerTool.Image = global::DrawingToolkit.Properties.Resources.pointer;
+            this.pointerTool.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.pointerTool.IsActive = false;
+            this.pointerTool.Name = "pointerTool";
+            this.pointerTool.Size = new System.Drawing.Size(23, 22);
+            this.pointerTool.Text = "Select And Move Drawing";
+            // 
+            // toolbar
+            // 
+            this.toolbar.BackColor = System.Drawing.Color.Gainsboro;
+            this.toolbar.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolbar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.pointerTool,
+            this.lineTool,
+            this.circleTool,
+            this.rectangleTool,
+            this.minusTool,
+            this.clearTool});
+            this.toolbar.Location = new System.Drawing.Point(0, 0);
+            this.toolbar.Name = "toolbar";
+            this.toolbar.Size = new System.Drawing.Size(800, 25);
+            this.toolbar.Stretch = true;
+            this.toolbar.TabIndex = 0;
+            this.toolbar.Text = "Toolbar";
+            // 
+            // minusTool
+            // 
+            this.minusTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.minusTool.Image = global::DrawingToolkit.Properties.Resources.minus;
+            this.minusTool.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.minusTool.Name = "minusTool";
+            this.minusTool.Size = new System.Drawing.Size(23, 22);
+            this.minusTool.Text = "Delete Single Object";
+            // 
             // fileSystemWatcher1
             // 
             this.fileSystemWatcher1.EnableRaisingEvents = true;
             this.fileSystemWatcher1.SynchronizingObject = this;
-            // 
-            // toolStripButton1
-            // 
-            this.pointerTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.pointerTool.Image = global::DrawingToolkit.Properties.Resources.pointer;
-            this.pointerTool.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.pointerTool.Name = "pointerTool";
-            this.pointerTool.Size = new System.Drawing.Size(23, 22);
-            this.pointerTool.Text = "Select And Move Drawing";
             // 
             // DrawingFrame
             // 
