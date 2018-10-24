@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace DrawingToolkit
 {
@@ -12,6 +13,7 @@ namespace DrawingToolkit
         private int lastY;
         private DrawingObject focusObject;
         private DrawingObject lastFocusObject;
+        private Point transResizeIndex;
 
         public PointerTool(DrawingCanvas canvas) : base(canvas)
         {
@@ -23,9 +25,13 @@ namespace DrawingToolkit
             lastX = x;
             lastY = y;
             if (lastFocusObject != null) {
+                transResizeIndex = lastFocusObject.GetTransResizeIndex(x, y);
+                if (transResizeIndex.X != -7) {
+                    focusObject = lastFocusObject;
+                }
                 lastFocusObject.IsActive = false;
             }
-            focusObject = drawingCanvas.GetLastIntersection(x, y);
+            focusObject = (focusObject == null) ? drawingCanvas.GetLastIntersection(x, y) : focusObject;
             if (focusObject != null) {
                 focusObject.IsActive = true;
             }
@@ -33,8 +39,11 @@ namespace DrawingToolkit
 
         public override void MouseUpdate(int x, int y)
         {
-           
-            focusObject?.Translate(x - lastX, y- lastY);
+            if (transResizeIndex.X != -7) {
+                focusObject?.ResizeByTranslate(transResizeIndex, x - lastX, y - lastY);
+            } else {
+                focusObject?.Translate(x - lastX, y - lastY);
+            }
             lastX = x;
             lastY = y;
         }
@@ -42,6 +51,7 @@ namespace DrawingToolkit
         public override void MouseEnd(int x, int y)
         {
             lastFocusObject = focusObject;
+            transResizeIndex = new Point(-7, 7);
             focusObject = null;
         }
 

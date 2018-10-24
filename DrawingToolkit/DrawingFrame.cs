@@ -36,7 +36,6 @@ namespace DrawingToolkit
             // 
             // drawingCanvas
             // 
-            this.drawingCanvas.ActiveTool = null;
             this.drawingCanvas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.drawingCanvas.Location = new System.Drawing.Point(0, 25);
             this.drawingCanvas.Name = "drawingCanvas";

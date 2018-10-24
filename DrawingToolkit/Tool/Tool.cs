@@ -32,10 +32,7 @@ namespace DrawingToolkit
             set {
                 if (_isActive = value) {
                     BackColor = Color.Silver;
-                    if (drawingCanvas.ActiveTool != null) {
-                        drawingCanvas.ActiveTool.IsActive = false;
-                    }
-                    drawingCanvas.ActiveTool = this;
+                    drawingCanvas.SetActiveTool(this);
                     OnActive?.Invoke();
                 } else {
                     BackColor = Color.Gainsboro;

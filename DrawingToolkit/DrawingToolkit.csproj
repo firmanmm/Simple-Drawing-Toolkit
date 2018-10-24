@@ -48,6 +48,7 @@
     <Compile Include="Drawables\Circle.cs" />
     <Compile Include="Drawables\Rectangle.cs" />
     <Compile Include="Drawables\SimpleShape.cs" />
+    <Compile Include="Drawables\Utility\ResizePoint.cs" />
     <Compile Include="DrawingCanvas.cs">
       <SubType>Component</SubType>
     </Compile>

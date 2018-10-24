@@ -13,7 +13,7 @@ namespace DrawingToolkit
     /// </summary>
     public class DrawingCanvas : Control
     {
-        public Tool ActiveTool { get; set;}
+        public Tool ActiveTool { get; private set;}
 
         private LinkedList<DrawingObject> drawables;
         private readonly Pen pen;
@@ -25,6 +25,10 @@ namespace DrawingToolkit
             MouseDown += DrawingCanvas_MouseDown;
             MouseMove += DrawingCanvas_MouseMove;
             MouseUp += DrawingCanvas_MouseUp;
+        }
+
+        ~DrawingCanvas() {
+            pen.Dispose();
         }
 
         private void DrawingCanvas_MouseUp(object sender, MouseEventArgs e)
@@ -84,9 +88,17 @@ namespace DrawingToolkit
             while (iter != null) {
                 if (iter.Value.IsIntersect(x, y)) {
                     drawables.Remove(iter);
+                    return;
                 }
                 iter = iter.Previous;
             }
+        }
+
+        public void SetActiveTool(Tool activeTool) {
+            if (ActiveTool != null) {
+                ActiveTool.IsActive = false;
+            }
+            ActiveTool = activeTool;
         }
     }
 }
