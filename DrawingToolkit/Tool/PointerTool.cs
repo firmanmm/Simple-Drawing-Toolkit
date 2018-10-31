@@ -29,11 +29,11 @@ namespace DrawingToolkit
                 if (transResizeIndex.X != -7) {
                     focusObject = lastFocusObject;
                 }
-                lastFocusObject.IsActive = false;
+                lastFocusObject.SetState(IdleState.GetState());
             }
             focusObject = (focusObject == null) ? drawingCanvas.GetLastIntersection(x, y) : focusObject;
             if (focusObject != null) {
-                focusObject.IsActive = true;
+                focusObject.SetState(ActiveState.GetState());
             }
         }
 
@@ -57,7 +57,7 @@ namespace DrawingToolkit
 
         private void EndPointerTool() {
             if (lastFocusObject != null) {
-                lastFocusObject.IsActive = false;
+                lastFocusObject.SetState(IdleState.GetState());
                 lastFocusObject = null;
             }
         }

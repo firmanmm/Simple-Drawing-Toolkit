@@ -9,13 +9,15 @@ namespace DrawingToolkit
 {
     public abstract class DrawingObject
     {
-        public bool IsActive { get; set; }
+        private readonly DrawingContext State;
+        
         protected Point _start;
         protected Point _end;
         protected int errorTolerance = 3;
         protected List<ResizePoint> resizePoints;
 
         public DrawingObject() {
+            State = new DrawingContext(this);
             resizePoints = new List<ResizePoint>();
         }
 
@@ -50,7 +52,7 @@ namespace DrawingToolkit
             }
             return new Point(-7, 7);
         }
-        protected abstract void DrawGraphic(Graphics graphics, Pen pen);
+        public abstract void DrawGraphic(Graphics graphics, Pen pen);
         protected abstract void UpdateResizePoint();
 
         public virtual void ResizeByTranslate(Point pos, int x, int y)
@@ -58,26 +60,14 @@ namespace DrawingToolkit
             UpdateResizePoint();
         }
 
-        protected void DrawResizePoint(Graphics graphics, Pen pen) {
+        public void DrawResizePoint(Graphics graphics, Pen pen) {
             foreach (ResizePoint point in resizePoints) {
                 point.DrawGraphic(graphics, pen);
             }
         }
 
-
         public virtual void Draw(Graphics graphics, Pen pen) {
-            Color defaultColor = pen.Color;
-            float defaultWidth = pen.Width;
-            if (IsActive) {
-                pen.Color = Color.Cyan;
-                pen.Width = 2;
-            }
-            DrawGraphic(graphics, pen);
-            pen.Width = defaultWidth;
-            pen.Color = defaultColor;
-            if (IsActive) {
-                DrawResizePoint(graphics, pen);
-            }
+            State.Draw(graphics, pen);
         }
 
         public void Translate(int x, int y) {
@@ -110,6 +100,10 @@ namespace DrawingToolkit
 
             return true;
 
+        }
+
+        public void SetState(DrawingState state) {
+            State.SetState(state);
         }
     }
 }

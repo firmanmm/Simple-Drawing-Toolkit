@@ -40,7 +40,7 @@ namespace DrawingToolkit
             resizePoints[1].StartPosition(_end.X, _end.Y);
         }
 
-        protected override void DrawGraphic(Graphics graphics,Pen pen) {
+        public override void DrawGraphic(Graphics graphics,Pen pen) {
             graphics.DrawLine(pen, _start, _end);
         }
 

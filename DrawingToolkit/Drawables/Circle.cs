@@ -10,7 +10,7 @@ namespace DrawingToolkit
     public class Circle : SimpleShape
     {
         public Circle() : base(8) { }
-        protected override void DrawGraphic(Graphics graphics, Pen pen)
+        public override void DrawGraphic(Graphics graphics, Pen pen)
         {
             graphics.DrawEllipse(pen, Start.X - width, Start.Y - height, width * 2, height * 2);
         }

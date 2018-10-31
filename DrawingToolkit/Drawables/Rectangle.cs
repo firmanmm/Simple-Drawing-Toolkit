@@ -10,7 +10,7 @@ namespace DrawingToolkit
     public class Rectangle : SimpleShape
     {
         public Rectangle() : base(8) { }
-        protected override void DrawGraphic(Graphics graphics, Pen pen)
+        public override void DrawGraphic(Graphics graphics, Pen pen)
         {
             graphics.DrawRectangle(pen, Start.X - width, Start.Y - height, width*2, height*2);
         }
