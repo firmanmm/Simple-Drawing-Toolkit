@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DrawingToolkit
 {
-    public class IdleState : DrawingState
+    public class IdleState : IDrawingState
     {
         private static IdleState state;
 
@@ -20,7 +20,7 @@ namespace DrawingToolkit
             return state;
         }
 
-        public override void StateDraw(DrawingObject drawing, Graphics graphics, Pen pen)
+        public void StateDraw(DrawingObject drawing, Graphics graphics, Pen pen)
         {
             drawing.DrawGraphic(graphics, pen);
         }

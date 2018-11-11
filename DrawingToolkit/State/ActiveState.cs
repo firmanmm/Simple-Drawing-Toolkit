@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace DrawingToolkit
 {
-    public class ActiveState : DrawingState
+    public class ActiveState : IDrawingState
     {
         private static ActiveState state;
 
@@ -21,7 +21,7 @@ namespace DrawingToolkit
             return state;
         }
 
-        public override void StateDraw(DrawingObject drawing, Graphics graphics, Pen pen)
+        public void StateDraw(DrawingObject drawing, Graphics graphics, Pen pen)
         {
             Color defaultColor = pen.Color;
             float defaultWidth = pen.Width;

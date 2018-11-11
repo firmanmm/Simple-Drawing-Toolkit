@@ -102,7 +102,7 @@ namespace DrawingToolkit
 
         }
 
-        public void SetState(DrawingState state) {
+        public void SetState(IDrawingState state) {
             State.SetState(state);
         }
     }

@@ -9,7 +9,7 @@ namespace DrawingToolkit
 {
     public class DrawingContext
     {
-        public DrawingState State { get; private set; }
+        public IDrawingState State { get; private set; }
 
         private readonly DrawingObject drawable;
 
@@ -22,7 +22,7 @@ namespace DrawingToolkit
             State.StateDraw(drawable, graphics, pen);
         }
 
-        public void SetState(DrawingState state)
+        public void SetState(IDrawingState state)
         {
             State = state;
         }

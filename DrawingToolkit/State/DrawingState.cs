@@ -7,8 +7,8 @@ using System.Drawing;
 
 namespace DrawingToolkit
 {
-    public abstract class DrawingState
+    public interface IDrawingState
     {
-        public abstract void StateDraw(DrawingObject drawing, Graphics graphics, Pen pen);   
+        void StateDraw(DrawingObject drawing, Graphics graphics, Pen pen);   
     }
 }
