@@ -7,8 +7,11 @@ using System.Drawing;
 
 namespace DrawingToolkit
 {
-    public interface IDrawingState
+    public abstract class DrawingState
     {
-        void StateDraw(DrawingObject drawing, Graphics graphics, Pen pen);   
+        public abstract void StateDraw(DrawingObject drawing, Graphics graphics, Pen pen);
+        public virtual void StateMouseUpdate(DrawingObject drawing,Point transIndex, int deltaX, int deltaY) {
+            return;
+        }
     }
 }

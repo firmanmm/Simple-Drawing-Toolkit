@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace DrawingToolkit
 {
-    public class InitState : IDrawingState
+    public class InitState : DrawingState
     {
         private static InitState state;
 
@@ -21,7 +21,7 @@ namespace DrawingToolkit
             return state;
         }
 
-        public void StateDraw(DrawingObject drawing, Graphics graphics, Pen pen)
+        public override void StateDraw(DrawingObject drawing, Graphics graphics, Pen pen)
         {
             pen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
             drawing.DrawGraphic(graphics, pen);

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
 
 namespace DrawingToolkit
@@ -10,8 +6,8 @@ namespace DrawingToolkit
     public abstract class SimpleShape : DrawingObject
     {
 
-        protected int width;
-        protected int height;
+        public int Width { protected set; get; }
+        public int Height { protected set; get; }
 
         public SimpleShape() { }
         public SimpleShape(int point) {
@@ -45,29 +41,29 @@ namespace DrawingToolkit
             UpdateDerived();
         }
 
-        private void UpdateDerived()
+        protected virtual void UpdateDerived()
         {
-            width = Math.Abs(_start.X - _end.X);
-            height = Math.Abs(_start.Y - _end.Y);
+            Width = Math.Abs(_start.X - _end.X);
+            Height = Math.Abs(_start.Y - _end.Y);
         }
 
         public override bool IsIntersect(int x, int y)
         {
             int diffX = Math.Abs(_start.X - x);
             int diffY = Math.Abs(_start.Y - y);
-            return diffX < width + errorTolerance && diffY < height + errorTolerance;
+            return diffX < Width + errorTolerance && diffY < Height + errorTolerance;
         }
 
         protected override void UpdateResizePoint()
         {
-            resizePoints[0].StartPosition(_start.X - width, _start.Y - height);
-            resizePoints[1].StartPosition(_start.X - width, _start.Y);
-            resizePoints[2].StartPosition(_start.X - width, _start.Y + height);
-            resizePoints[3].StartPosition(_start.X, _start.Y + height);
-            resizePoints[4].StartPosition(_start.X + width, _start.Y + height);
-            resizePoints[5].StartPosition(_start.X + width, _start.Y);
-            resizePoints[6].StartPosition(_start.X + width, _start.Y - height);
-            resizePoints[7].StartPosition(_start.X, _start.Y - height);
+            resizePoints[0].StartPosition(_start.X - Width, _start.Y - Height);
+            resizePoints[1].StartPosition(_start.X - Width, _start.Y);
+            resizePoints[2].StartPosition(_start.X - Width, _start.Y + Height);
+            resizePoints[3].StartPosition(_start.X, _start.Y + Height);
+            resizePoints[4].StartPosition(_start.X + Width, _start.Y + Height);
+            resizePoints[5].StartPosition(_start.X + Width, _start.Y);
+            resizePoints[6].StartPosition(_start.X + Width, _start.Y - Height);
+            resizePoints[7].StartPosition(_start.X, _start.Y - Height);
         }
 
         public override Point GetTransResizeIndex(int x, int y)
@@ -87,6 +83,10 @@ namespace DrawingToolkit
             UpdatePosition(_end.X + pos.X * x, _end.Y += pos.Y * y);
         }
 
-        
+        public override int[] GetBorder()
+        {
+            return new int[] {_start.X-Width,_start.Y-Height,_end.X,_end.Y};
+        }
+
     }
 }

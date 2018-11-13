@@ -58,6 +58,10 @@ namespace DrawingToolkit
             drawables.AddLast(drawable);
         }
 
+        public void RemoveDrawable(DrawingObject drawable) {
+            drawables.Remove(drawable);
+        }
+
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
@@ -87,6 +91,7 @@ namespace DrawingToolkit
             LinkedListNode<DrawingObject> iter = drawables.Last;
             while (iter != null) {
                 if (iter.Value.IsIntersect(x, y)) {
+                    iter.Value.Detach();
                     drawables.Remove(iter);
                     return;
                 }

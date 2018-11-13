@@ -46,6 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Drawables\Circle.cs" />
+    <Compile Include="Drawables\CompositeShape.cs" />
+    <Compile Include="Drawables\Connector.cs" />
     <Compile Include="Drawables\Rectangle.cs" />
     <Compile Include="Drawables\SimpleShape.cs" />
     <Compile Include="Drawables\Utility\ResizePoint.cs" />
@@ -68,12 +70,19 @@
     <Compile Include="State\ActiveState.cs" />
     <Compile Include="State\DrawingContext.cs" />
     <Compile Include="State\DrawingState.cs" />
+    <Compile Include="State\EditState.cs" />
     <Compile Include="State\IdleState.cs" />
     <Compile Include="State\InitState.cs" />
     <Compile Include="Tool\CircleTool.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Tool\ClearTool.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Tool\CompositeTool.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Tool\ConnectorTool.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Tool\DrawingTool.cs">
@@ -123,10 +132,14 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="Sprite\circle.png" />
+    <None Include="Sprite\save.ico" />
     <None Include="Sprite\clear.png" />
+    <None Include="Sprite\combine.png" />
+    <None Include="Sprite\connector.png" />
     <Content Include="Sprite\line.png" />
     <None Include="Sprite\pointer.png" />
     <None Include="Sprite\minus.png" />
+    <None Include="Sprite\load.png" />
     <Content Include="Sprite\rectangle.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

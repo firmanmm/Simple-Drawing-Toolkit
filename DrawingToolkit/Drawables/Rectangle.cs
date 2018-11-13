@@ -12,7 +12,7 @@ namespace DrawingToolkit
         public Rectangle() : base(8) { }
         public override void DrawGraphic(Graphics graphics, Pen pen)
         {
-            graphics.DrawRectangle(pen, Start.X - width, Start.Y - height, width*2, height*2);
+            graphics.DrawRectangle(pen, Start.X - Width, Start.Y - Height, Width*2, Height*2);
         }
     }
 }

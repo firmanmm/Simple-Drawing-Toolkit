@@ -17,7 +17,7 @@ namespace DrawingToolkit
         }
 
         public override void DrawGraphic(Graphics graphics, Pen pen) {
-            graphics.FillRectangle(Brushes.Crimson, Start.X - width, Start.Y - height, width * 2, height * 2);
+            graphics.FillRectangle(Brushes.Crimson, Start.X - Width, Start.Y - Height, Width * 2, Height * 2);
         }
 
     }

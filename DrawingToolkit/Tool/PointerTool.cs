@@ -9,14 +9,20 @@ namespace DrawingToolkit
 {
     public class PointerTool : Tool
     {
+        public Action OnCompositeReady;
+        public Action OnCompositeNotReady;
+
         private int lastX;
         private int lastY;
+        private LinkedList<DrawingObject> prepareComposite;
         private DrawingObject focusObject;
         private DrawingObject lastFocusObject;
         private Point transResizeIndex;
 
+
         public PointerTool(DrawingCanvas canvas) : base(canvas)
         {
+            prepareComposite = new LinkedList<DrawingObject>();
             OnInactive = EndPointerTool;
         }
 
@@ -31,18 +37,39 @@ namespace DrawingToolkit
                 }
                 lastFocusObject.SetState(IdleState.GetState());
             }
+            ComputeFocus(x,y);
+                
+        }
+
+        private void ComputeFocus(int x, int y) {
             focusObject = (focusObject == null) ? drawingCanvas.GetLastIntersection(x, y) : focusObject;
+
             if (focusObject != null) {
-                focusObject.SetState(ActiveState.GetState());
+                if (lastFocusObject == null || focusObject == lastFocusObject && prepareComposite.Count < 2) {
+                    focusObject.SetState(EditState.GetState());
+                } else {
+                    lastFocusObject?.SetState(ActiveState.GetState());
+                }
+                if (!prepareComposite.Contains(focusObject)) {
+                    prepareComposite.AddLast(focusObject);
+                    if (prepareComposite.Count > 1) {
+                        OnCompositeReady();
+                        focusObject.SetState(ActiveState.GetState());
+                    }
+
+                }
+
+            } else {
+                SetComposite(IdleState.GetState());
+                prepareComposite.Clear();
+                OnCompositeNotReady();
             }
         }
 
         public override void MouseUpdate(int x, int y)
         {
-            if (transResizeIndex.X != -7) {
-                focusObject?.ResizeByTranslate(transResizeIndex, x - lastX, y - lastY);
-            } else {
-                focusObject?.Translate(x - lastX, y - lastY);
+            if (prepareComposite.Count <= 1) {
+                focusObject?.OnMouseUpdate(transResizeIndex, x - lastX, y - lastY);
             }
             lastX = x;
             lastY = y;
@@ -60,6 +87,29 @@ namespace DrawingToolkit
                 lastFocusObject.SetState(IdleState.GetState());
                 lastFocusObject = null;
             }
+            SetComposite(IdleState.GetState());
+            prepareComposite.Clear();
+            OnCompositeNotReady();
+        }
+
+        private void SetComposite(DrawingState drawingState) {
+            foreach (DrawingObject obj in prepareComposite) {
+                obj.SetState(drawingState);
+            }
+        }
+
+        public void MakeComposite() {
+            if (prepareComposite.Count < 2) {
+                return;
+            }
+            CompositeShape composite = new CompositeShape(prepareComposite);
+            foreach (DrawingObject obj in prepareComposite) {
+                drawingCanvas.RemoveDrawable(obj);
+            }
+            drawingCanvas.AddDrawable(composite);
+            SetComposite(IdleState.GetState());
+            prepareComposite.Clear();
+            OnCompositeNotReady();
         }
     }
 }

@@ -11,7 +11,7 @@ namespace DrawingToolkit
         protected DrawingObject drawingObject;
 
         public DrawingTool(DrawingCanvas canvas) : base(canvas){
-                
+           
         }
 
         public override void MouseInit(int x, int y)
@@ -29,6 +29,7 @@ namespace DrawingToolkit
 
         public override void MouseEnd(int x, int y)
         {
+            drawingObject.SetState(IdleState.GetState());
             drawingObject = null;
         }
 

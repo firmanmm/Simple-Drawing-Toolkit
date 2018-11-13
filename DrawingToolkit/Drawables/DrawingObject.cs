@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
 
 namespace DrawingToolkit
@@ -10,6 +7,12 @@ namespace DrawingToolkit
     public abstract class DrawingObject
     {
         private readonly DrawingContext State;
+
+        //Observeable
+        public Action OnUpdate { get; set; }
+
+        private DrawingObject parent;
+        private LinkedListNode<DrawingObject> node;
         
         protected Point _start;
         protected Point _end;
@@ -58,6 +61,7 @@ namespace DrawingToolkit
         public virtual void ResizeByTranslate(Point pos, int x, int y)
         {
             UpdateResizePoint();
+            OnUpdate?.Invoke();
         }
 
         public void DrawResizePoint(Graphics graphics, Pen pen) {
@@ -70,12 +74,13 @@ namespace DrawingToolkit
             State.Draw(graphics, pen);
         }
 
-        public void Translate(int x, int y) {
+        public virtual void Translate(int x, int y) {
             _start.X += x;
             _start.Y += y;
             _end.X += x;
             _end.Y += y;
             UpdateResizePoint();
+            OnUpdate?.Invoke();
         }
 
         public virtual bool IsIntersect(int x, int y) {
@@ -102,8 +107,36 @@ namespace DrawingToolkit
 
         }
 
-        public void SetState(IDrawingState state) {
+        public void SetState(DrawingState state) {
             State.SetState(state);
+        }
+
+        public virtual LinkedListNode<DrawingObject> AddChild(DrawingObject child) {
+            return null;
+        }
+
+        public virtual void RemoveChild(LinkedListNode<DrawingObject> node) {
+            return;
+        }
+
+        public virtual void Detach() {
+            if (parent != null) {
+                parent.RemoveChild(node);
+                parent = null;
+            }
+        }
+
+        public void SetParent(DrawingObject parent,LinkedListNode<DrawingObject> node) {
+            this.parent = parent;
+            this.node = node;
+        }
+
+        public virtual int[] GetBorder() {
+            return new int[] {_start.X,_start.Y,_end.X,_end.Y};
+        }
+
+        public void OnMouseUpdate(Point transResizeIndex, int deltaX, int deltaY) {
+            State.MouseUpdate(this, transResizeIndex, deltaX, deltaY);
         }
     }
 }

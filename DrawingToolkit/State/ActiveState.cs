@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
+﻿using System.Drawing;
 
 namespace DrawingToolkit
 {
-    public class ActiveState : IDrawingState
+    public class ActiveState : DrawingState
     {
         private static ActiveState state;
 
@@ -21,19 +16,14 @@ namespace DrawingToolkit
             return state;
         }
 
-        public void StateDraw(DrawingObject drawing, Graphics graphics, Pen pen)
+        public override void StateDraw(DrawingObject drawing, Graphics graphics, Pen pen)
         {
             Color defaultColor = pen.Color;
-            float defaultWidth = pen.Width;
-            pen.Color = Color.Cyan;
-            pen.Width = 2;
+            pen.Color = Color.Blue;
 
             drawing.DrawGraphic(graphics, pen);
 
-            pen.Width = defaultWidth;
             pen.Color = defaultColor;
-
-            drawing.DrawResizePoint(graphics, pen);
         }
     }
 }

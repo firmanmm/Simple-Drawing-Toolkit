@@ -12,7 +12,7 @@ namespace DrawingToolkit
         public Circle() : base(8) { }
         public override void DrawGraphic(Graphics graphics, Pen pen)
         {
-            graphics.DrawEllipse(pen, Start.X - width, Start.Y - height, width * 2, height * 2);
+            graphics.DrawEllipse(pen, Start.X - Width, Start.Y - Height, Width * 2, Height * 2);
         }
 
         

@@ -49,6 +49,15 @@ namespace DrawingToolkit
             return Math.Abs((x - _start.X) * (_end.Y - _start.Y) - (y - _start.Y) * (_end.X - _start.X)) < errorTolerance && base.IsIntersect(x,y); 
         }
 
+        public override int[] GetBorder()
+        {
+            int minX = (_start.X < _end.X) ? _start.X : _end.X;
+            int minY = (_start.Y < _end.Y) ? _start.Y : _end.Y;
+            int maxX = (_start.X > _end.X) ? _start.X : _end.X;
+            int maxY = (_start.Y > _end.Y) ? _start.Y : _end.Y;
+            return new int[] { minX, minY, maxX, maxY };
+        }
+
         public override void ResizeByTranslate(Point pos, int x, int y)
         {
             base.ResizeByTranslate(pos, x, y);
