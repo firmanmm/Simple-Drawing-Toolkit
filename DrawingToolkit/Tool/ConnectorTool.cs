@@ -41,7 +41,7 @@ namespace DrawingToolkit
                     drawingCanvas.RemoveDrawable(drawingObject);
                 }
             } else {
-                ((Connector)drawingObject).SetHeadAndTail(initObject, lastObject);
+                ((Connector)drawingObject)?.SetHeadAndTail(initObject, lastObject);
             }
             base.MouseEnd(x, y);
         }

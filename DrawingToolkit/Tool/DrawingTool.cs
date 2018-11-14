@@ -29,7 +29,7 @@ namespace DrawingToolkit
 
         public override void MouseEnd(int x, int y)
         {
-            drawingObject.SetState(IdleState.GetState());
+            drawingObject?.SetState(IdleState.GetState());
             drawingObject = null;
         }
 
