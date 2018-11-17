@@ -14,11 +14,15 @@ namespace DrawingToolkit
     public class DrawingCanvas : Control
     {
         public Tool ActiveTool { get; private set;}
+        public readonly UndoRedoController undoRedoController;
 
         private LinkedList<DrawingObject> drawables;
         private readonly Pen pen;
 
         public DrawingCanvas() {
+
+            undoRedoController = new UndoRedoController(this);
+
             SetStyle(ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
             drawables = new LinkedList<DrawingObject>();
             pen = new Pen(Color.Black);
@@ -27,9 +31,7 @@ namespace DrawingToolkit
             MouseUp += DrawingCanvas_MouseUp;
         }
 
-        ~DrawingCanvas() {
-            pen.Dispose();
-        }
+        
 
         private void DrawingCanvas_MouseUp(object sender, MouseEventArgs e)
         {
@@ -71,6 +73,7 @@ namespace DrawingToolkit
         }
 
         public void Clear() {
+            undoRedoController.ClearProcesses();
             drawables.Clear();
             Invalidate();
         }
@@ -87,16 +90,18 @@ namespace DrawingToolkit
             return null;
         }
 
-        public void DeleteLastIntersection(int x, int y) {
+        public DrawingObject DeleteLastIntersection(int x, int y) {
             LinkedListNode<DrawingObject> iter = drawables.Last;
             while (iter != null) {
                 if (iter.Value.IsIntersect(x, y)) {
                     iter.Value.Detach();
+                    DrawingObject drawable = iter.Value;
                     drawables.Remove(iter);
-                    return;
+                    return drawable;
                 }
                 iter = iter.Previous;
             }
+            return null;
         }
 
         public void SetActiveTool(Tool activeTool) {

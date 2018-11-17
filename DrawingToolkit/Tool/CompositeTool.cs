@@ -26,7 +26,7 @@ namespace DrawingToolkit
 
         protected override void Tool_MouseDown(object sender, MouseEventArgs e)
         {
-            pointerTool.MakeComposite();
+            pointerTool.ExecuteComposite();
         }
     }
 }

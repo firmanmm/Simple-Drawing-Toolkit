@@ -11,7 +11,11 @@ namespace DrawingToolkit
     {
         private LinkedList<DrawingObject> childs;
 
-        public CompositeShape(LinkedList<DrawingObject> objects) {
+        public override int ChildCount {
+            get { return childs.Count; }
+        }
+
+        public CompositeShape(DrawingObject[] objects) {
             childs = new LinkedList<DrawingObject>();
             foreach (DrawingObject obj in objects) {
                 AddChild(obj);
@@ -57,6 +61,14 @@ namespace DrawingToolkit
             UpdateDerived();
         }
 
+        public override DrawingObject[] DisAssemble() {
+            DrawingObject[] drawable = childs.ToArray();
+            foreach (DrawingObject child in drawable) {
+                 child.Detach();
+            }
+            return drawable;
+        }
+
         public override void StartPosition(int x, int y)
         {
             throw new NotImplementedException();
@@ -69,7 +81,7 @@ namespace DrawingToolkit
 
         protected override void UpdateResizePoint()
         {
-            
+            //SPIN
         }
 
         protected override void UpdateDerived()

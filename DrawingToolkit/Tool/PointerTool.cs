@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using DrawingToolkit.Command;
 
 namespace DrawingToolkit
 {
@@ -45,8 +46,12 @@ namespace DrawingToolkit
             focusObject = (focusObject == null) ? drawingCanvas.GetLastIntersection(x, y) : focusObject;
 
             if (focusObject != null) {
+                
                 if (lastFocusObject == null || focusObject == lastFocusObject && prepareComposite.Count < 2) {
                     focusObject.SetState(EditState.GetState());
+                    if (focusObject.ChildCount > 0) {
+                        OnCompositeReady();
+                    }
                 } else {
                     lastFocusObject?.SetState(ActiveState.GetState());
                 }
@@ -56,20 +61,22 @@ namespace DrawingToolkit
                         OnCompositeReady();
                         focusObject.SetState(ActiveState.GetState());
                     }
-
                 }
-
             } else {
-                SetComposite(IdleState.GetState());
+                SetPreparedState(IdleState.GetState());
                 prepareComposite.Clear();
-                OnCompositeNotReady();
+                OnCompositeNotReady?.Invoke();
             }
         }
 
         public override void MouseUpdate(int x, int y)
         {
-            if (prepareComposite.Count <= 1) {
-                focusObject?.OnMouseUpdate(transResizeIndex, x - lastX, y - lastY);
+            if (focusObject != null && prepareComposite.Count <= 1) {
+                if (transResizeIndex.X != -7) {
+                    drawingCanvas.undoRedoController.AddProcess(new ResizeCommand(drawingCanvas, focusObject, transResizeIndex, x - lastX, y - lastY));
+                } else {
+                    drawingCanvas.undoRedoController.AddProcess(new TranslateCommand(drawingCanvas, focusObject, x - lastX, y - lastY));
+                }
             }
             lastX = x;
             lastY = y;
@@ -87,27 +94,25 @@ namespace DrawingToolkit
                 lastFocusObject.SetState(IdleState.GetState());
                 lastFocusObject = null;
             }
-            SetComposite(IdleState.GetState());
-            prepareComposite.Clear();
-            OnCompositeNotReady();
+            SetPreparedState(IdleState.GetState());
+            prepareComposite?.Clear();
+            OnCompositeNotReady?.Invoke();
         }
 
-        private void SetComposite(DrawingState drawingState) {
+        private void SetPreparedState(DrawingState drawingState) {
             foreach (DrawingObject obj in prepareComposite) {
                 obj.SetState(drawingState);
             }
         }
 
-        public void MakeComposite() {
-            if (prepareComposite.Count < 2) {
-                return;
+        public void ExecuteComposite() {
+            if (prepareComposite.Count == 1) {
+                drawingCanvas.undoRedoController.AddProcess(new DecompositeCommand(drawingCanvas, prepareComposite.First.Value));
+            } else {
+                DrawingObject composite = DrawingObject.MakeComposite(drawingCanvas, prepareComposite.ToArray());
+                drawingCanvas.undoRedoController.AddProcess(new CompositeCommand(drawingCanvas, composite));
             }
-            CompositeShape composite = new CompositeShape(prepareComposite);
-            foreach (DrawingObject obj in prepareComposite) {
-                drawingCanvas.RemoveDrawable(obj);
-            }
-            drawingCanvas.AddDrawable(composite);
-            SetComposite(IdleState.GetState());
+            SetPreparedState(IdleState.GetState());
             prepareComposite.Clear();
             OnCompositeNotReady();
         }

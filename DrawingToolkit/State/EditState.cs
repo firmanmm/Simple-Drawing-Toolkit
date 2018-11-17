@@ -38,11 +38,13 @@ namespace DrawingToolkit
 
         public override void StateMouseUpdate(DrawingObject drawing, Point transIndex, int deltaX, int deltaY)
         {
+            /* Cannot Apply Command Pattern in this condition
             if (transIndex.X != -7) {
                 drawing?.ResizeByTranslate(transIndex,deltaX, deltaY);
             } else {
                 drawing?.Translate(deltaX, deltaY);
             }
+            */
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DrawingToolkit.Command;
 
 namespace DrawingToolkit
 {
@@ -16,7 +17,7 @@ namespace DrawingToolkit
 
         public override void MouseInit(int x, int y)
         {
-            drawingCanvas.AddDrawable(drawingObject);
+            drawingCanvas.undoRedoController.AddProcess(new AddDrawableCommand(drawingCanvas,drawingObject));
             drawingObject.StartPosition(x, y);
         }
 

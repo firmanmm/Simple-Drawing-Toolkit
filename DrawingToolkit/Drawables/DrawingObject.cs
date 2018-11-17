@@ -10,6 +10,7 @@ namespace DrawingToolkit
 
         //Observeable
         public Action OnUpdate { get; set; }
+        
 
         private DrawingObject parent;
         private LinkedListNode<DrawingObject> node;
@@ -22,6 +23,10 @@ namespace DrawingToolkit
         public DrawingObject() {
             State = new DrawingContext(this);
             resizePoints = new List<ResizePoint>();
+        }
+
+        public virtual int ChildCount {
+            get { return 0; }
         }
 
         public Point Start
@@ -69,6 +74,8 @@ namespace DrawingToolkit
                 point.DrawGraphic(graphics, pen);
             }
         }
+
+
 
         public virtual void Draw(Graphics graphics, Pen pen) {
             State.Draw(graphics, pen);
@@ -126,6 +133,11 @@ namespace DrawingToolkit
             }
         }
 
+        public virtual DrawingObject[] DisAssemble() {
+            return null;
+        }
+
+
         public void SetParent(DrawingObject parent,LinkedListNode<DrawingObject> node) {
             this.parent = parent;
             this.node = node;
@@ -137,6 +149,14 @@ namespace DrawingToolkit
 
         public void OnMouseUpdate(Point transResizeIndex, int deltaX, int deltaY) {
             State.MouseUpdate(this, transResizeIndex, deltaX, deltaY);
+        }
+
+        public static DrawingObject MakeComposite(DrawingCanvas canvas, DrawingObject[] drawables) {
+            if (drawables.Length < 2) {
+                return drawables[0];
+            }
+            CompositeShape composite = new CompositeShape(drawables);
+            return composite;
         }
     }
 }

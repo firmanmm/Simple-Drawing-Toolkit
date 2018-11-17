@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DrawingToolkit.Command;
 
 namespace DrawingToolkit
 {
@@ -13,7 +14,10 @@ namespace DrawingToolkit
 
         public override void MouseInit(int x, int y)
         {
-            drawingCanvas.DeleteLastIntersection(x, y);
+            DrawingObject drawable = drawingCanvas.GetLastIntersection(x, y);
+            if (drawable != null) {
+                drawingCanvas.undoRedoController.AddProcess(new RemoveDrawableCommand(drawingCanvas, drawable));
+            }
         }
     }
 }

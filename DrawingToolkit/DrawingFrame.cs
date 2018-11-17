@@ -13,6 +13,8 @@ namespace DrawingToolkit
         private ToolStrip toolbar;
         private Tool compositeTool;
         private Tool connectorTool;
+        private Tool undoTool;
+        private Tool redoTool;
 
         private System.IO.FileSystemWatcher fileSystemWatcher1;
         private ToolStripButton saveBtn;
@@ -24,7 +26,8 @@ namespace DrawingToolkit
 
         #region Windows Form Designer generated code
 
-        private void InitCustomTool() {
+        private void InitCustomTool()
+        {
             this.drawingCanvas = new DrawingCanvas();
             this.lineTool = new LineTool(drawingCanvas);
             this.circleTool = new CircleTool(drawingCanvas);
@@ -34,13 +37,14 @@ namespace DrawingToolkit
             this.minusTool = new MinusTool(drawingCanvas);
             this.compositeTool = new CompositeTool(drawingCanvas, (PointerTool)pointerTool);
             this.connectorTool = new ConnectorTool(drawingCanvas);
+            this.undoTool = new UndoTool(drawingCanvas);
+            this.redoTool = new RedoTool(drawingCanvas);
 
             this.toolbar = new System.Windows.Forms.ToolStrip();
         }
 
         protected override void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DrawingFrame));
             this.drawingCanvas = new DrawingCanvas();
             this.lineTool = new LineTool(drawingCanvas);
             this.circleTool = new CircleTool(drawingCanvas);
@@ -50,6 +54,8 @@ namespace DrawingToolkit
             this.minusTool = new MinusTool(drawingCanvas);
             this.compositeTool = new CompositeTool(drawingCanvas, (PointerTool)pointerTool);
             this.connectorTool = new ConnectorTool(drawingCanvas);
+            this.undoTool = new UndoTool(drawingCanvas);
+            this.redoTool = new RedoTool(drawingCanvas);
 
             this.saveBtn = new System.Windows.Forms.ToolStripButton();
             this.loadBtn = new System.Windows.Forms.ToolStripButton();
@@ -57,7 +63,7 @@ namespace DrawingToolkit
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
-           
+            
             this.toolbar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.SuspendLayout();
@@ -138,6 +144,7 @@ namespace DrawingToolkit
             // 
             // compositeTool
             // 
+            this.compositeTool.BackColor = System.Drawing.Color.Gainsboro;
             this.compositeTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.compositeTool.Image = global::DrawingToolkit.Properties.Resources.combine;
             this.compositeTool.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -145,6 +152,17 @@ namespace DrawingToolkit
             this.compositeTool.Name = "compositeTool";
             this.compositeTool.Size = new System.Drawing.Size(23, 22);
             this.compositeTool.Text = "Combine/Uncombine";
+            // 
+            // connectorTool
+            // 
+            this.connectorTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.connectorTool.Image = global::DrawingToolkit.Properties.Resources.connector;
+            this.connectorTool.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.connectorTool.IsActive = false;
+            this.connectorTool.Name = "connectorTool";
+            this.connectorTool.Size = new System.Drawing.Size(23, 22);
+            this.connectorTool.Text = "Connector Tool";
+            this.connectorTool.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // saveBtn
             // 
@@ -172,6 +190,8 @@ namespace DrawingToolkit
             this.toolbar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.saveBtn,
             this.loadBtn,
+            this.undoTool,
+            this.redoTool,
             this.toolStripSeparator1,
             this.pointerTool,
             this.lineTool,
@@ -204,15 +224,24 @@ namespace DrawingToolkit
             this.fileSystemWatcher1.EnableRaisingEvents = true;
             this.fileSystemWatcher1.SynchronizingObject = this;
             // 
-            // toolStripButton1
+            // undoBtn
             // 
-            this.connectorTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.connectorTool.Image = global::DrawingToolkit.Properties.Resources.connector;
-            this.connectorTool.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.connectorTool.Name = "Connector Tool";
-            this.connectorTool.Size = new System.Drawing.Size(23, 22);
-            this.connectorTool.Text = "Connector Tool";
-            this.connectorTool.Click += new System.EventHandler(this.toolStripButton1_Click);
+            this.undoTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.undoTool.Image = global::DrawingToolkit.Properties.Resources.undo;
+            this.undoTool.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.undoTool.Name = "undoBtn";
+            this.undoTool.Size = new System.Drawing.Size(23, 22);
+            this.undoTool.Text = "Undo";
+            // 
+            // redoBtn
+            // 
+            this.redoTool.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.redoTool.Image = global::DrawingToolkit.Properties.Resources.redo;
+            this.redoTool.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.redoTool.Name = "redoBtn";
+            this.redoTool.Size = new System.Drawing.Size(23, 22);
+            this.redoTool.Text = "toolStripButton2";
+            this.redoTool.ToolTipText = "Redo";
             // 
             // DrawingFrame
             // 

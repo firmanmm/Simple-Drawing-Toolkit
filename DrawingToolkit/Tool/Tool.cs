@@ -20,10 +20,12 @@ namespace DrawingToolkit
         public Tool(DrawingCanvas canvas) {
             drawingCanvas = canvas;
             MouseDown += Tool_MouseDown;
+            MouseDown += (obj, evt) => { drawingCanvas.Invalidate(); };
         }
 
         protected virtual void Tool_MouseDown(object sender, MouseEventArgs e)
         {
+            
             IsActive = true;
         }
 
