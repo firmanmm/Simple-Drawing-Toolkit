@@ -133,17 +133,39 @@ namespace DrawingToolkit
         }
 
         public void SaveDrawingData() {
-            fileManager.Save(drawables, "Test.ren");
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Title = "Save to File";
+            saveFileDialog.InitialDirectory = fileManager.CurrentPath;
+            saveFileDialog.AddExtension = true;
+            saveFileDialog.Filter = "RenSimpleDrawingToolkit (*.rsdt) | *.rsdt";
+            DialogResult result = saveFileDialog.ShowDialog();
+            if (result == DialogResult.OK) {
+                fileManager.Save(drawables, saveFileDialog.FileName);
+            }
+
         }
 
         public void LoadDrawingData() {
-            Clear();
-            IEnumerable<DrawingObject> drawings = fileManager.Load("Test.ren");
-            foreach (DrawingObject drawing in drawings) {
-                AddDrawable(drawing);
-                SetIDTracker(drawing.Id + 1);
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Title = "Open File";
+            openFileDialog.InitialDirectory = fileManager.CurrentPath;
+            openFileDialog.AddExtension = true;
+            openFileDialog.Filter = "RenSimpleDrawingToolkit (*.rsdt) | *.rsdt";
+            DialogResult result = openFileDialog.ShowDialog();
+            if (result == DialogResult.OK) {
+                Clear();
+                try {
+                    IEnumerable<DrawingObject> drawings = fileManager.Load(openFileDialog.FileName);
+                    foreach (DrawingObject drawing in drawings) {
+                        AddDrawable(drawing);
+                        SetIDTracker(drawing.Id + 1);
+                    }
+                } catch(Exception e) {
+                    MessageBox.Show(e.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                Invalidate();
             }
-            Invalidate();
+            
         }
 
         public int SetIDTracker(int id) {
