@@ -6,11 +6,14 @@ namespace DrawingToolkit
 {
     public abstract class DrawingObject
     {
+        protected string name;
+
+        public int Id { get; set; }
+
         private readonly DrawingContext State;
 
         //Observeable
         public Action OnUpdate { get; set; }
-        
 
         private DrawingObject parent;
         private LinkedListNode<DrawingObject> node;
@@ -23,6 +26,7 @@ namespace DrawingToolkit
         public DrawingObject() {
             State = new DrawingContext(this);
             resizePoints = new List<ResizePoint>();
+            name = "DrawingObject";
         }
 
         public virtual int ChildCount {
@@ -122,6 +126,10 @@ namespace DrawingToolkit
             return null;
         }
 
+        public virtual IEnumerable<DrawingObject> GetChilds() {
+            return null;
+        }
+
         public virtual void RemoveChild(LinkedListNode<DrawingObject> node) {
             return;
         }
@@ -157,6 +165,26 @@ namespace DrawingToolkit
             }
             CompositeShape composite = new CompositeShape(drawables);
             return composite;
+        }
+
+        public void SetID(int id) {
+            if (this.Id == 0) {
+                this.Id = id;
+            } else {
+                throw new FieldAccessException("Id can only be set once for lifetime!");
+            }
+        }
+
+        public virtual List<string> ToTokenString() {
+            return new List<string>() {
+                name,
+                Id.ToString(),
+                (parent == null) ? "0" : parent.Id.ToString(),
+                _start.X.ToString(),
+                _start.Y.ToString(),
+                _end.X.ToString(),
+                _end.Y.ToString()
+            };
         }
     }
 }

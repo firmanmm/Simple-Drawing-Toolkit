@@ -10,9 +10,13 @@ namespace DrawingToolkit
 {
     public class PointerTool : Tool
     {
+        public const int NO_MATCH_BOUNDRY = -7;
+
         public Action OnCompositeReady;
         public Action OnCompositeNotReady;
 
+        private int deltaX;
+        private int deltaY;
         private int lastX;
         private int lastY;
         private LinkedList<DrawingObject> prepareComposite;
@@ -29,11 +33,12 @@ namespace DrawingToolkit
 
         public override void MouseInit(int x, int y)
         {
+            deltaX = deltaY = 0;
             lastX = x;
             lastY = y;
             if (lastFocusObject != null) {
                 transResizeIndex = lastFocusObject.GetTransResizeIndex(x, y);
-                if (transResizeIndex.X != -7) {
+                if (transResizeIndex.X != NO_MATCH_BOUNDRY) {
                     focusObject = lastFocusObject;
                 }
                 lastFocusObject.SetState(IdleState.GetState());
@@ -71,21 +76,35 @@ namespace DrawingToolkit
 
         public override void MouseUpdate(int x, int y)
         {
+            deltaX += x - lastX;
+            deltaY += y - lastY;
+
             if (focusObject != null && prepareComposite.Count <= 1) {
-                if (transResizeIndex.X != -7) {
-                    drawingCanvas.undoRedoController.AddProcess(new ResizeCommand(drawingCanvas, focusObject, transResizeIndex, x - lastX, y - lastY));
+                if (transResizeIndex.X != NO_MATCH_BOUNDRY) {
+                    focusObject.ResizeByTranslate(transResizeIndex, x - lastX, y - lastY);
                 } else {
-                    drawingCanvas.undoRedoController.AddProcess(new TranslateCommand(drawingCanvas, focusObject, x - lastX, y - lastY));
+                    focusObject.Translate(x - lastX, y - lastY);
                 }
             }
+
             lastX = x;
             lastY = y;
         }
 
         public override void MouseEnd(int x, int y)
         {
+            if (focusObject != null && prepareComposite.Count <= 1) {
+                if (transResizeIndex.X != NO_MATCH_BOUNDRY) {
+                    focusObject.ResizeByTranslate(transResizeIndex, -deltaX, -deltaY);
+                    drawingCanvas.undoRedoController.AddProcess(new ResizeCommand(drawingCanvas, focusObject, transResizeIndex, deltaX, deltaY));
+                } else {
+                    focusObject.Translate(-deltaX, -deltaY);
+                    drawingCanvas.undoRedoController.AddProcess(new TranslateCommand(drawingCanvas, focusObject, deltaX, deltaY));
+                }
+            }
+
             lastFocusObject = focusObject;
-            transResizeIndex = new Point(-7, 7);
+            transResizeIndex = new Point(NO_MATCH_BOUNDRY, -NO_MATCH_BOUNDRY);
             focusObject = null;
         }
 

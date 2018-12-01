@@ -7,13 +7,13 @@ using DrawingToolkit.Command;
 
 namespace DrawingToolkit
 {
-    public class UndoRedoController
+    public class UndoRedoManager
     {
         private DrawingCanvas canvas;
         private Stack<ICommand> undoStack;
         private Stack<ICommand> redoStack;
 
-        public UndoRedoController(DrawingCanvas canvas) {
+        public UndoRedoManager(DrawingCanvas canvas) {
             this.canvas = canvas;
             undoStack = new Stack<ICommand>();
             redoStack = new Stack<ICommand>();
@@ -40,7 +40,9 @@ namespace DrawingToolkit
 
         public void RedoProcess() {
             if (redoStack.Count > 0) {
-                redoStack.Pop().Execute();
+                ICommand command = redoStack.Pop();
+                command.Execute();
+                undoStack.Push(command);
             }
         }
 

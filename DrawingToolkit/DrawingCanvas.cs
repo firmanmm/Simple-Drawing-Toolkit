@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
+using DrawingToolkit.Controller;
 
 namespace DrawingToolkit
 {
@@ -14,17 +15,24 @@ namespace DrawingToolkit
     public class DrawingCanvas : Control
     {
         public Tool ActiveTool { get; private set;}
-        public readonly UndoRedoController undoRedoController;
+        public readonly UndoRedoManager undoRedoController;
 
-        private LinkedList<DrawingObject> drawables;
         private readonly Pen pen;
+        private readonly FileManager fileManager;
+
+        private int idTracker = 1;
+
+        private readonly LinkedList<DrawingObject> drawables;
+        private readonly Dictionary<int, LinkedListNode<DrawingObject>> drawableMapper;
 
         public DrawingCanvas() {
 
-            undoRedoController = new UndoRedoController(this);
+            fileManager = new FileManager();
+            undoRedoController = new UndoRedoManager(this);
 
             SetStyle(ControlStyles.UserPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint, true);
             drawables = new LinkedList<DrawingObject>();
+            drawableMapper = new Dictionary<int, LinkedListNode<DrawingObject>>();
             pen = new Pen(Color.Black);
             MouseDown += DrawingCanvas_MouseDown;
             MouseMove += DrawingCanvas_MouseMove;
@@ -56,12 +64,24 @@ namespace DrawingToolkit
             }
         }
 
-        public void AddDrawable(DrawingObject drawable) {
-            drawables.AddLast(drawable);
+        public int AddDrawable(DrawingObject drawable) {
+            if (drawable.Id == 0) {
+                drawable.Id = idTracker;
+                drawableMapper.Add(idTracker++, drawables.AddLast(drawable));
+            } else {
+                idTracker = (drawable.Id >= idTracker) ? drawable.Id + 1 : idTracker;
+                drawableMapper.Add(drawable.Id, drawables.AddLast(drawable));
+            }
+            return drawable.Id;
+
         }
 
-        public void RemoveDrawable(DrawingObject drawable) {
-            drawables.Remove(drawable);
+        public void RemoveDrawable(int id) {
+            LinkedListNode<DrawingObject> data;
+            if (drawableMapper.TryGetValue(id, out data)) {
+                drawables.Remove(data);
+                drawableMapper.Remove(id);
+            }
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -75,6 +95,7 @@ namespace DrawingToolkit
         public void Clear() {
             undoRedoController.ClearProcesses();
             drawables.Clear();
+            drawableMapper.Clear();
             Invalidate();
         }
 
@@ -110,5 +131,27 @@ namespace DrawingToolkit
             }
             ActiveTool = activeTool;
         }
+
+        public void SaveDrawingData() {
+            fileManager.Save(drawables, "Test.ren");
+        }
+
+        public void LoadDrawingData() {
+            Clear();
+            IEnumerable<DrawingObject> drawings = fileManager.Load("Test.ren");
+            foreach (DrawingObject drawing in drawings) {
+                AddDrawable(drawing);
+                SetIDTracker(drawing.Id + 1);
+            }
+            Invalidate();
+        }
+
+        public int SetIDTracker(int id) {
+            if (idTracker < id) {
+                idTracker = id;
+            }
+            return idTracker;
+        }
     }
+
 }

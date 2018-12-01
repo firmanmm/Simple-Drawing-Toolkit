@@ -53,6 +53,9 @@
     <Compile Include="Command\RemoveDrawableCommand.cs" />
     <Compile Include="Command\ResizeCommand.cs" />
     <Compile Include="Command\TranslateCommand.cs" />
+    <Compile Include="Controller\DrawableFactory.cs" />
+    <Compile Include="Controller\FileManager.cs" />
+    <Compile Include="Controller\FileParser.cs" />
     <Compile Include="Drawables\Circle.cs" />
     <Compile Include="Drawables\CompositeShape.cs" />
     <Compile Include="Drawables\Connector.cs" />
@@ -100,6 +103,9 @@
     <Compile Include="Tool\LineTool.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Tool\LoadTool.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Tool\MinusTool.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -112,13 +118,16 @@
     <Compile Include="Tool\RedoTool.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Tool\SaveTool.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Tool\Tool.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Tool\UndoTool.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controller\UndoRedoController.cs" />
+    <Compile Include="Controller\UndoRedoManager.cs" />
     <EmbeddedResource Include="DrawingFrame.resx">
       <DependentUpon>DrawingFrame.cs</DependentUpon>
     </EmbeddedResource>

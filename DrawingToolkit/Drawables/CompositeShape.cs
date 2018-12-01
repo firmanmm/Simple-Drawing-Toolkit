@@ -15,7 +15,8 @@ namespace DrawingToolkit
             get { return childs.Count; }
         }
 
-        public CompositeShape(DrawingObject[] objects) {
+        public CompositeShape(IEnumerable<DrawingObject> objects) {
+            name = "Composite";
             childs = new LinkedList<DrawingObject>();
             foreach (DrawingObject obj in objects) {
                 AddChild(obj);
@@ -71,17 +72,22 @@ namespace DrawingToolkit
 
         public override void StartPosition(int x, int y)
         {
-            throw new NotImplementedException();
+            //SPIN
         }
 
         public override void UpdatePosition(int x, int y)
         {
-            throw new NotImplementedException();
+            //SPIN
         }
 
         protected override void UpdateResizePoint()
         {
             //SPIN
+        }
+
+        public override IEnumerable<DrawingObject> GetChilds()
+        {
+            return childs;
         }
 
         protected override void UpdateDerived()
@@ -103,5 +109,39 @@ namespace DrawingToolkit
                 child.SetParent(null,null);
             }
         }
+
+        public override List<string> ToTokenString()
+        {
+            List<string> tokens = new List<string>(base.ToTokenString());
+            foreach (DrawingObject child in childs) {
+                tokens.Add(child.Id.ToString());
+            }
+            return tokens;
+        }
+
+        public static DrawingObject FromTokenString(Dictionary<int, DrawingObject> drawingPool, string[] token)
+        {
+            List<DrawingObject> compositeObjects = new List<DrawingObject>();
+            for (int i = 7; i < token.Length; i++) {
+                int id = int.Parse(token[i]);
+                compositeObjects.Add(drawingPool[id]);
+                drawingPool.Remove(id);
+            }
+
+            CompositeShape composite = new CompositeShape(compositeObjects) {
+                Id = int.Parse(token[1]),
+                Start = new Point(
+                    int.Parse(token[3]),
+                    int.Parse(token[4])),
+                End = new Point(
+                    int.Parse(token[5]),
+                    int.Parse(token[6]))
+            };
+            composite.UpdateDerived();
+            return composite;
+
+        }
     }
+
+    
 }

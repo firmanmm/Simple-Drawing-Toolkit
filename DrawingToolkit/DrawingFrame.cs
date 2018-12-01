@@ -1,4 +1,5 @@
 ﻿using System.Windows.Forms;
+using DrawingToolkit.Controller;
 
 namespace DrawingToolkit
 {
@@ -15,16 +16,14 @@ namespace DrawingToolkit
         private Tool connectorTool;
         private Tool undoTool;
         private Tool redoTool;
+        private Tool saveBtn;
+        private Tool loadBtn;
 
         private System.IO.FileSystemWatcher fileSystemWatcher1;
-        private ToolStripButton saveBtn;
-        private ToolStripButton loadBtn;
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripSeparator toolStripSeparator2;
         
         private DrawingCanvas drawingCanvas;
-
-        #region Windows Form Designer generated code
 
         private void InitCustomTool()
         {
@@ -39,9 +38,21 @@ namespace DrawingToolkit
             this.connectorTool = new ConnectorTool(drawingCanvas);
             this.undoTool = new UndoTool(drawingCanvas);
             this.redoTool = new RedoTool(drawingCanvas);
+            this.saveBtn = new SaveTool(drawingCanvas);
+            this.loadBtn = new LoadTool(drawingCanvas);
 
             this.toolbar = new System.Windows.Forms.ToolStrip();
         }
+
+        private void PopulateFactory() {
+            DrawableFactory.AddStrategy("Line", Line.FromTokenString);
+            DrawableFactory.AddStrategy("Circle", Circle.FromTokenString);
+            DrawableFactory.AddStrategy("Rectangle", Rectangle.FromTokenString);
+            DrawableFactory.AddStrategy("Composite", CompositeShape.FromTokenString);
+            DrawableFactory.AddStrategy("Connector", Connector.FromTokenString);
+        }
+
+        #region Windows Form Designer generated code
 
         protected override void InitializeComponent()
         {
@@ -57,8 +68,8 @@ namespace DrawingToolkit
             this.undoTool = new UndoTool(drawingCanvas);
             this.redoTool = new RedoTool(drawingCanvas);
 
-            this.saveBtn = new System.Windows.Forms.ToolStripButton();
-            this.loadBtn = new System.Windows.Forms.ToolStripButton();
+            this.saveBtn = new SaveTool(drawingCanvas);
+            this.loadBtn = new LoadTool(drawingCanvas);
             this.toolbar = new System.Windows.Forms.ToolStrip();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -162,7 +173,6 @@ namespace DrawingToolkit
             this.connectorTool.Name = "connectorTool";
             this.connectorTool.Size = new System.Drawing.Size(23, 22);
             this.connectorTool.Text = "Connector Tool";
-            this.connectorTool.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // saveBtn
             // 
@@ -257,13 +267,9 @@ namespace DrawingToolkit
             this.ResumeLayout(false);
             this.PerformLayout();
 
+            PopulateFactory();
         }
 
         #endregion
-
-        private void toolStripButton1_Click(object sender, System.EventArgs e)
-        {
-
-        }
     }
 }

@@ -13,6 +13,7 @@ namespace DrawingToolkit
     public class Line : DrawingObject
     {
         public Line() {
+            name = "Line";
             errorTolerance = 2500;
             resizePoints.AddRange(new ResizePoint[] {
                 new ResizePoint(0,0,2),
@@ -71,6 +72,24 @@ namespace DrawingToolkit
                 _end.X += x;
                 _end.Y += y;
             }
+            UpdateResizePoint();
+        }
+
+        public static DrawingObject FromTokenString(Dictionary<int, DrawingObject> drawingPool, string[] token)
+        {
+            Line current = new Line() {
+                Id = int.Parse(token[1]),
+                Start = new Point(
+                    int.Parse(token[3]),
+                    int.Parse(token[4])),
+                End = new Point(
+                    int.Parse(token[5]),
+                    int.Parse(token[6]))
+            };
+            current.UpdateResizePoint();
+            return current;
+
+
         }
     }
 }

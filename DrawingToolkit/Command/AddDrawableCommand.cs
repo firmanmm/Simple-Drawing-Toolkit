@@ -19,7 +19,7 @@ namespace DrawingToolkit.Command
 
         public override void Unexecute()
         {
-            canvas.RemoveDrawable(drawingObject);
+            canvas.RemoveDrawable(drawingObject.Id);
         }
     }
 }

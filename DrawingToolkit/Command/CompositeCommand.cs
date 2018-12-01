@@ -16,7 +16,7 @@ namespace DrawingToolkit.Command
         {
             drawables = drawingObject.DisAssemble(); //Get Drawable for Undo and Redo Purposes
             foreach (DrawingObject obj in drawables) {
-                canvas.RemoveDrawable(obj);
+                canvas.RemoveDrawable(obj.Id);
             }
             Unexecute();
             isInitialized = true;
@@ -26,7 +26,7 @@ namespace DrawingToolkit.Command
         {
             foreach (DrawingObject obj in drawables) {
                 drawingObject.AddChild(obj);
-                canvas.RemoveDrawable(obj);
+                canvas.RemoveDrawable(obj.Id);
             }
             if (isInitialized) {
                 canvas.AddDrawable(drawingObject);
@@ -35,7 +35,9 @@ namespace DrawingToolkit.Command
 
         public override void Unexecute()
         {
-            canvas.RemoveDrawable(drawingObject);
+            if (drawingObject.Id > 0) {
+                canvas.RemoveDrawable(drawingObject.Id);
+            }
             drawingObject.DisAssemble();
             foreach (DrawingObject drawable in drawables) {
                 canvas.AddDrawable(drawable);

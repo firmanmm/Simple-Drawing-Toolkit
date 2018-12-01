@@ -9,8 +9,11 @@ namespace DrawingToolkit
         public int Width { protected set; get; }
         public int Height { protected set; get; }
 
-        public SimpleShape() { }
+        public SimpleShape() {
+            name = "Simple";
+        }
         public SimpleShape(int point) {
+            name = "Simple";
             resizePoints.AddRange(new ResizePoint[] {
                 new ResizePoint(-1,-1,2),
                 new ResizePoint(-1,0,2),
@@ -35,9 +38,6 @@ namespace DrawingToolkit
         {
             _end.X = x;
             _end.Y = y;
-            if (resizePoints.Count > 0) {
-                UpdateResizePoint();
-            }
             UpdateDerived();
         }
 
@@ -45,6 +45,9 @@ namespace DrawingToolkit
         {
             Width = Math.Abs(_start.X - _end.X);
             Height = Math.Abs(_start.Y - _end.Y);
+            if (resizePoints.Count > 0) {
+                UpdateResizePoint();
+            }
         }
 
         public override bool IsIntersect(int x, int y)

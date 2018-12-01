@@ -38,7 +38,7 @@ namespace DrawingToolkit
             DrawingObject lastObject = drawingCanvas.GetLastIntersection(x, y);
             if (lastObject == null) {
                 if (drawingObject != null) {
-                    drawingCanvas.RemoveDrawable(drawingObject);
+                    drawingCanvas.RemoveDrawable(drawingObject.Id);
                 }
             } else {
                 ((Connector)drawingObject)?.SetHeadAndTail(initObject, lastObject);
