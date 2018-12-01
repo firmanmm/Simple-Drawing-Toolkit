@@ -23,10 +23,13 @@ namespace DrawingToolkit
         private DrawingObject focusObject;
         private DrawingObject lastFocusObject;
         private Point transResizeIndex;
+        private PropertiesPanel propertiesPanel;
 
 
-        public PointerTool(DrawingCanvas canvas) : base(canvas)
+        public PointerTool(DrawingCanvas canvas, PropertiesPanel properties) : base(canvas)
         {
+            propertiesPanel = properties;
+            properties.Hide();
             prepareComposite = new LinkedList<DrawingObject>();
             OnInactive = EndPointerTool;
         }
@@ -51,8 +54,8 @@ namespace DrawingToolkit
             focusObject = (focusObject == null) ? drawingCanvas.GetLastIntersection(x, y) : focusObject;
 
             if (focusObject != null) {
-                
                 if (lastFocusObject == null || focusObject == lastFocusObject && prepareComposite.Count < 2) {
+                    propertiesPanel.SetDrawable(focusObject);
                     focusObject.SetState(EditState.GetState());
                     if (focusObject.ChildCount > 0) {
                         OnCompositeReady();
@@ -63,11 +66,13 @@ namespace DrawingToolkit
                 if (!prepareComposite.Contains(focusObject)) {
                     prepareComposite.AddLast(focusObject);
                     if (prepareComposite.Count > 1) {
+                        propertiesPanel.Hide();
                         OnCompositeReady();
                         focusObject.SetState(ActiveState.GetState());
                     }
                 }
             } else {
+                propertiesPanel.Hide();
                 SetPreparedState(IdleState.GetState());
                 prepareComposite.Clear();
                 OnCompositeNotReady?.Invoke();
@@ -116,6 +121,7 @@ namespace DrawingToolkit
             SetPreparedState(IdleState.GetState());
             prepareComposite?.Clear();
             OnCompositeNotReady?.Invoke();
+            propertiesPanel.Hide();
         }
 
         private void SetPreparedState(DrawingState drawingState) {
@@ -125,11 +131,15 @@ namespace DrawingToolkit
         }
 
         public void ExecuteComposite() {
+            propertiesPanel.Hide();
             if (prepareComposite.Count == 1) {
                 drawingCanvas.undoRedoController.AddProcess(new DecompositeCommand(drawingCanvas, prepareComposite.First.Value));
             } else {
                 DrawingObject composite = DrawingObject.MakeComposite(drawingCanvas, prepareComposite.ToArray());
                 drawingCanvas.undoRedoController.AddProcess(new CompositeCommand(drawingCanvas, composite));
+                foreach (DrawingObject prepared in prepareComposite) {
+                    prepared.SetState(IdleState.GetState());
+                }
             }
             SetPreparedState(IdleState.GetState());
             prepareComposite.Clear();

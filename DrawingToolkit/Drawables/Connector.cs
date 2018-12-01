@@ -16,6 +16,7 @@ namespace DrawingToolkit
 
         public Connector() {
             name = "Connector";
+            Modifier = PropertyModifier.NoModification;
         }
 
         public void SetHeadAndTail(DrawingObject head, DrawingObject tail) {
@@ -47,17 +48,19 @@ namespace DrawingToolkit
         public override List<string> ToTokenString()
         {
             return new List<string>(base.ToTokenString()) {
-                head.Id.ToString(),tail.Id.ToString()
+                "H",
+                head.Id.ToString(), //20
+                "T",
+                tail.Id.ToString(), //22
             };
         }
 
         public static new DrawingObject FromTokenString(Dictionary<int, DrawingObject> drawingPool, string[] token)
         {
-            Connector current = new Connector() {
-                Id = int.Parse(token[1]),
-            };
-            DrawingObject head = drawingPool[int.Parse(token[7])];
-            DrawingObject tail = drawingPool[int.Parse(token[8])];
+            Connector current = new Connector();
+            SetBaseProperties(current, token);
+            DrawingObject head = drawingPool[int.Parse(token[20])];
+            DrawingObject tail = drawingPool[int.Parse(token[22])];
             current.SetHeadAndTail(head, tail);
             return current;
 

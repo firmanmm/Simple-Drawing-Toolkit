@@ -59,6 +59,7 @@
     <Compile Include="Drawables\Circle.cs" />
     <Compile Include="Drawables\CompositeShape.cs" />
     <Compile Include="Drawables\Connector.cs" />
+    <Compile Include="Drawables\PropertyModifier.cs" />
     <Compile Include="Drawables\Rectangle.cs" />
     <Compile Include="Drawables\SimpleShape.cs" />
     <Compile Include="Drawables\Utility\ResizePoint.cs" />
@@ -78,6 +79,9 @@
     <Compile Include="Drawables\Line.cs" />
     <Compile Include="Command\ICommand.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="PropertiesPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="State\ActiveState.cs" />
     <Compile Include="State\DrawingContext.cs" />

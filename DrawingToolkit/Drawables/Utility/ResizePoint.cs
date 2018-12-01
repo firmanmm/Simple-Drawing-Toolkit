@@ -14,6 +14,7 @@ namespace DrawingToolkit
         public ResizePoint(int x, int y, int size) {
             Multiplier = new Point(x, y);
             UpdatePosition(2, 2);
+            Modifier = PropertyModifier.NoModification;
         }
 
         public override void DrawGraphic(Graphics graphics, Pen pen) {

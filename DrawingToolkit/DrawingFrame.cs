@@ -1,5 +1,7 @@
 ﻿using System.Windows.Forms;
 using DrawingToolkit.Controller;
+using System.Drawing;
+using System;
 
 namespace DrawingToolkit
 {
@@ -18,6 +20,7 @@ namespace DrawingToolkit
         private Tool redoTool;
         private Tool saveBtn;
         private Tool loadBtn;
+        private PropertiesPanel propertiesPanel;
 
         private System.IO.FileSystemWatcher fileSystemWatcher1;
         private ToolStripSeparator toolStripSeparator1;
@@ -28,11 +31,12 @@ namespace DrawingToolkit
         private void InitCustomTool()
         {
             this.drawingCanvas = new DrawingCanvas();
+            this.propertiesPanel = new PropertiesPanel(drawingCanvas);
             this.lineTool = new LineTool(drawingCanvas);
             this.circleTool = new CircleTool(drawingCanvas);
             this.rectangleTool = new RectangleTool(drawingCanvas);
             this.clearTool = new ClearTool(drawingCanvas);
-            this.pointerTool = new PointerTool(drawingCanvas);
+            this.pointerTool = new PointerTool(drawingCanvas, propertiesPanel);
             this.minusTool = new MinusTool(drawingCanvas);
             this.compositeTool = new CompositeTool(drawingCanvas, (PointerTool)pointerTool);
             this.connectorTool = new ConnectorTool(drawingCanvas);
@@ -42,6 +46,17 @@ namespace DrawingToolkit
             this.loadBtn = new LoadTool(drawingCanvas);
 
             this.toolbar = new System.Windows.Forms.ToolStrip();
+            PopulateFactory();
+            InitPropertiesPanel();
+        }
+
+        private void InitPropertiesPanel() {
+            this.propertiesPanel.Location = new Point(400, 430);
+            this.propertiesPanel.Size = new Size(400, 20);
+            this.propertiesPanel.BackColor = Color.White;
+            this.propertiesPanel.BorderStyle = BorderStyle.FixedSingle;
+            this.propertiesPanel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            this.Controls.Add(this.propertiesPanel);
         }
 
         private void PopulateFactory() {
@@ -56,20 +71,22 @@ namespace DrawingToolkit
 
         protected override void InitializeComponent()
         {
+            PopulateFactory();
             this.drawingCanvas = new DrawingCanvas();
+            this.propertiesPanel = new PropertiesPanel(drawingCanvas);
             this.lineTool = new LineTool(drawingCanvas);
             this.circleTool = new CircleTool(drawingCanvas);
             this.rectangleTool = new RectangleTool(drawingCanvas);
             this.clearTool = new ClearTool(drawingCanvas);
-            this.pointerTool = new PointerTool(drawingCanvas);
+            this.pointerTool = new PointerTool(drawingCanvas, propertiesPanel);
             this.minusTool = new MinusTool(drawingCanvas);
             this.compositeTool = new CompositeTool(drawingCanvas, (PointerTool)pointerTool);
             this.connectorTool = new ConnectorTool(drawingCanvas);
             this.undoTool = new UndoTool(drawingCanvas);
             this.redoTool = new RedoTool(drawingCanvas);
-
             this.saveBtn = new SaveTool(drawingCanvas);
             this.loadBtn = new LoadTool(drawingCanvas);
+
             this.toolbar = new System.Windows.Forms.ToolStrip();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -255,6 +272,13 @@ namespace DrawingToolkit
             // 
             // DrawingFrame
             // 
+            this.propertiesPanel.Location = new Point(400, 430);
+            this.propertiesPanel.Size = new Size(400, 20);
+            this.propertiesPanel.BackColor = Color.White;
+            this.propertiesPanel.BorderStyle = BorderStyle.FixedSingle;
+            this.propertiesPanel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            this.Controls.Add(this.propertiesPanel);
+
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.drawingCanvas);
@@ -266,8 +290,6 @@ namespace DrawingToolkit
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
-
-            PopulateFactory();
         }
 
         #endregion

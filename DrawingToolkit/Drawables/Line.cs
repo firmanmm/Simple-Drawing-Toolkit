@@ -14,6 +14,7 @@ namespace DrawingToolkit
     {
         public Line() {
             name = "Line";
+            Modifier = PropertyModifier.PositionAdjustable | PropertyModifier.BorderColorable;
             errorTolerance = 2500;
             resizePoints.AddRange(new ResizePoint[] {
                 new ResizePoint(0,0,2),
@@ -77,19 +78,10 @@ namespace DrawingToolkit
 
         public static DrawingObject FromTokenString(Dictionary<int, DrawingObject> drawingPool, string[] token)
         {
-            Line current = new Line() {
-                Id = int.Parse(token[1]),
-                Start = new Point(
-                    int.Parse(token[3]),
-                    int.Parse(token[4])),
-                End = new Point(
-                    int.Parse(token[5]),
-                    int.Parse(token[6]))
-            };
+            Line current = new Line();
+            SetBaseProperties(current, token);
             current.UpdateResizePoint();
             return current;
-
-
         }
     }
 }

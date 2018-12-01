@@ -11,9 +11,11 @@ namespace DrawingToolkit
 
         public SimpleShape() {
             name = "Simple";
+            Modifier = Modifier | PropertyModifier.BackgroundColorable | PropertyModifier.BorderColorable | PropertyModifier.SizeAdjustable;
         }
         public SimpleShape(int point) {
             name = "Simple";
+            Modifier = Modifier | PropertyModifier.BackgroundColorable | PropertyModifier.BorderColorable | PropertyModifier.SizeAdjustable;
             resizePoints.AddRange(new ResizePoint[] {
                 new ResizePoint(-1,-1,2),
                 new ResizePoint(-1,0,2),
@@ -43,6 +45,7 @@ namespace DrawingToolkit
 
         protected virtual void UpdateDerived()
         {
+
             Width = Math.Abs(_start.X - _end.X);
             Height = Math.Abs(_start.Y - _end.Y);
             if (resizePoints.Count > 0) {
@@ -83,7 +86,8 @@ namespace DrawingToolkit
 
         public override void ResizeByTranslate(Point pos, int x, int y)
         {
-            UpdatePosition(_end.X + pos.X * x, _end.Y += pos.Y * y);
+            UpdatePosition(_end.X + pos.X * x, _end.Y + pos.Y * y);
+            OnUpdate?.Invoke();
         }
 
         public override int[] GetBorder()

@@ -17,6 +17,7 @@ namespace DrawingToolkit
 
         public CompositeShape(IEnumerable<DrawingObject> objects) {
             name = "Composite";
+            Modifier = PropertyModifier.PositionAdjustable;
             childs = new LinkedList<DrawingObject>();
             foreach (DrawingObject obj in objects) {
                 AddChild(obj);
@@ -29,15 +30,16 @@ namespace DrawingToolkit
 
         public override void DrawGraphic(Graphics graphics, Pen pen)
         {
-            float penWidth = pen.Width;
-            pen.Width = 1f;
-            pen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
-            graphics.DrawRectangle(pen, _start.X-Width, _start.Y-Height, Width*2, Height*2);
-            pen.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
-            pen.Width = penWidth;
+            Color defaultColor = pen.Color;
             foreach (DrawingObject child in childs) {
-                child.DrawGraphic(graphics, pen);
+                pen.Color = child.BorderColor;
+                child.Draw(graphics, pen);
             }
+
+            pen.Color = defaultColor;
+            pen.DashStyle = System.Drawing.Drawing2D.DashStyle.Dash;
+            graphics.DrawRectangle(pen, _start.X - Width, _start.Y - Height, Width * 2, Height * 2);
+            pen.DashStyle = System.Drawing.Drawing2D.DashStyle.Solid;
         }
 
         public override LinkedListNode<DrawingObject> AddChild(DrawingObject child)
@@ -112,7 +114,9 @@ namespace DrawingToolkit
 
         public override List<string> ToTokenString()
         {
-            List<string> tokens = new List<string>(base.ToTokenString());
+            List<string> tokens = new List<string>(base.ToTokenString()) {
+                "C" // 19
+            };
             foreach (DrawingObject child in childs) {
                 tokens.Add(child.Id.ToString());
             }
@@ -122,21 +126,14 @@ namespace DrawingToolkit
         public static DrawingObject FromTokenString(Dictionary<int, DrawingObject> drawingPool, string[] token)
         {
             List<DrawingObject> compositeObjects = new List<DrawingObject>();
-            for (int i = 7; i < token.Length; i++) {
+            for (int i = 20; i < token.Length; i++) {
                 int id = int.Parse(token[i]);
                 compositeObjects.Add(drawingPool[id]);
                 drawingPool.Remove(id);
             }
 
-            CompositeShape composite = new CompositeShape(compositeObjects) {
-                Id = int.Parse(token[1]),
-                Start = new Point(
-                    int.Parse(token[3]),
-                    int.Parse(token[4])),
-                End = new Point(
-                    int.Parse(token[5]),
-                    int.Parse(token[6]))
-            };
+            CompositeShape composite = new CompositeShape(compositeObjects);
+            SetBaseProperties(composite, token);
             composite.UpdateDerived();
             return composite;
 
