@@ -1,0 +1,346 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Access">
+  <Class Name="DrawingToolkit.Command.AddDrawableCommand" Collapsed="true">
+    <Position X="11" Y="9.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Command\AddDrawableCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.Command.CompositeCommand" Collapsed="true">
+    <Position X="14" Y="9.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAQAAAAAAAAAAAAAAAAEAAAAAIAAAAA=</HashCode>
+      <FileName>Command\CompositeCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.Command.DecompositeCommand" Collapsed="true">
+    <Position X="13.75" Y="11.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Command\DecompositeCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.Command.DrawableCommand" Collapsed="true">
+    <Position X="15.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAQAAAAAAAACAAAAIAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Command\DrawableCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DrawingToolkit.Command.ParametricDrawableCommand" Collapsed="true">
+    <Position X="17.75" Y="9.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAAAAAAA=</HashCode>
+      <FileName>Command\ParametricDrawableCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.Command.RemoveDrawableCommand" Collapsed="true">
+    <Position X="10.75" Y="11.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Command\RemoveDrawableCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.Command.ResizeCommand" Collapsed="true">
+    <Position X="16.5" Y="11.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAgCAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Command\ResizeCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.Command.TranslateCommand" Collapsed="true">
+    <Position X="19.25" Y="11.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Command\TranslateCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.Controller.DrawableFactory" Collapsed="true">
+    <Position X="29" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAIAAAAAQAA=</HashCode>
+      <FileName>Controller\DrawableFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.Controller.FileManager" Collapsed="true">
+    <Position X="34.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgIAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Controller\FileManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.Controller.FileParser" Collapsed="true">
+    <Position X="29" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAAAAAAIQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\FileParser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.UndoRedoManager" Collapsed="true">
+    <Position X="30.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAAAAABAACABAgAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Controller\UndoRedoManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.Circle" Collapsed="true">
+    <Position X="9.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Drawables\Circle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.CompositeShape" Collapsed="true">
+    <Position X="3" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAEAAIMCQAAAKwABAAAAIAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Drawables\CompositeShape.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.Connector" Collapsed="true">
+    <Position X="0.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQIAAAAgAAAEAAAAAAwAAgAAAAAAAAAAAAAAAAAAgA=</HashCode>
+      <FileName>Drawables\Connector.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.DrawingObject" Collapsed="true">
+    <Position X="5.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQIKBIAAECAIsmJAAAIRCBBCCAIEAAgAAUAEBAUAAIA=</HashCode>
+      <FileName>Drawables\DrawingObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.Line" Collapsed="true">
+    <Position X="0.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAEAAAMGAAAAAgAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Drawables\Line.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.Rectangle" Collapsed="true">
+    <Position X="7.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Drawables\Rectangle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.SimpleShape" Collapsed="true">
+    <Position X="6.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAFAAAMGQAAAABAEAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Drawables\SimpleShape.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.ResizePoint" Collapsed="true">
+    <Position X="5.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Drawables\Utility\ResizePoint.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.DrawingCanvas" Collapsed="true">
+    <Position X="30.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QIGAAAgACAAAAAAAAAgAAABAQBIADAAAgAARAYBAAAA=</HashCode>
+      <FileName>DrawingCanvas.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.DrawingFrame" Collapsed="true">
+    <Position X="0.5" Y="13" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AJAAAAkAACEIUAAAIAAAAAACAFQICkIAAAAAAgACAgA=</HashCode>
+      <FileName>DrawingFrame.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.Frame" Collapsed="true">
+    <Position X="0.5" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAACAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Frame.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.Program" Collapsed="true">
+    <Position X="30.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.PropertiesPanel" Collapsed="true">
+    <Position X="32.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAQECAoAABAAAAAACAQAAgAAAiAACAAAAAAA=</HashCode>
+      <FileName>PropertiesPanel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.ActiveState" Collapsed="true">
+    <Position X="7.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAAAAAAAIAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>State\ActiveState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.DrawingContext" Collapsed="true">
+    <Position X="32.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAgAAAAAACAAAAAAAAAAAAAAABIAAAAA=</HashCode>
+      <FileName>State\DrawingContext.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.DrawingState" Collapsed="true">
+    <Position X="4" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>State\DrawingState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.EditState" Collapsed="true">
+    <Position X="0.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAAAAAAAIAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>State\EditState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.IdleState" Collapsed="true">
+    <Position X="3" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAAAAAAAIAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>State\IdleState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.InitState" Collapsed="true">
+    <Position X="5.25" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAAAAAAAAAAAAIAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>State\InitState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.CircleTool" Collapsed="true">
+    <Position X="13" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tool\CircleTool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.ClearTool" Collapsed="true">
+    <Position X="24.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tool\ClearTool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.CompositeTool" Collapsed="true">
+    <Position X="1.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAABAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tool\CompositeTool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.ConnectorTool" Collapsed="true">
+    <Position X="8.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAACAQCAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tool\ConnectorTool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.DrawingTool" Collapsed="true">
+    <Position X="9.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAACCQCAAAAAAAICAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tool\DrawingTool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.LineTool" Collapsed="true">
+    <Position X="10.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tool\LineTool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.LoadTool" Collapsed="true">
+    <Position X="17.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tool\LoadTool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.MinusTool" Collapsed="true">
+    <Position X="22" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tool\MinusTool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.PointerTool" Collapsed="true">
+    <Position X="26.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEABEAAAAAAAQIBAACAQCAABAAAAAIAAAAAwAEACgAQ=</HashCode>
+      <FileName>Tool\PointerTool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.RectangleTool" Collapsed="true">
+    <Position X="6.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tool\RectangleTool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.RedoTool" Collapsed="true">
+    <Position X="4" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tool\RedoTool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.SaveTool" Collapsed="true">
+    <Position X="15.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tool\SaveTool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.Tool" Collapsed="true">
+    <Position X="14" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAEKAQCAAAABACQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tool\Tool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.UndoTool" Collapsed="true">
+    <Position X="19.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tool\UndoTool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.Properties.Resources" Collapsed="true">
+    <Position X="34.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEEAAAAEAICCAAAAAAEBGCAAAQAAAAAAEAAAAAAAAYA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DrawingToolkit.Properties.Settings" Collapsed="true">
+    <Position X="29" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="DrawingToolkit.Command.ICommand" Collapsed="true">
+    <Position X="29" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Command\ICommand.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="DrawingToolkit.PropertyModifier" Collapsed="true">
+    <Position X="29" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAAAAAAAAAAAAAAACIAAEAAAAAIAAAAAA=</HashCode>
+      <FileName>Drawables\PropertyModifier.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

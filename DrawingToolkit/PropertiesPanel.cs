@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
+using DrawingToolkit.Command;
 
 namespace DrawingToolkit{
 
@@ -122,7 +123,7 @@ namespace DrawingToolkit{
             ColorDialog colorDialog = new ColorDialog();
             DialogResult result = colorDialog.ShowDialog();
             if (result == DialogResult.OK) {
-                Drawable.BackgroundColor = colorDialog.Color;
+                canvas.undoRedoController.AddProcess(new ChangeBackgroundCommand(canvas, Drawable, colorDialog.Color));
                 bgColorBtn.BackColor = Drawable.BackgroundColor;
             }
         }
@@ -132,7 +133,7 @@ namespace DrawingToolkit{
             ColorDialog colorDialog = new ColorDialog();
             DialogResult result = colorDialog.ShowDialog();
             if (result == DialogResult.OK) {
-                Drawable.BorderColor = colorDialog.Color;
+                canvas.undoRedoController.AddProcess(new ChangeBorderCommand(canvas, Drawable, colorDialog.Color));
                 brColorBtn.BackColor = Drawable.BorderColor;
             }
 
@@ -148,7 +149,7 @@ namespace DrawingToolkit{
                     deltaY -= Drawable.Start.Y;
                     if (deltaX != 0 || deltaY != 0) {
                         match = true;
-                        Drawable.Translate(deltaX, deltaY);
+                        canvas.undoRedoController.AddProcess(new TranslateCommand(canvas, Drawable, deltaX, deltaY));
                     }
                 }
             }
@@ -162,7 +163,7 @@ namespace DrawingToolkit{
                         deltaY -= current.Height;
                         if (deltaX != 0 || deltaY != 0) {
                             match = true;
-                            Drawable.ResizeByTranslate(new Point(1, 1), deltaX, deltaY);
+                            canvas.undoRedoController.AddProcess(new ResizeCommand(canvas, Drawable, new Point(1, 1), deltaX, deltaY));
                         }
                     }
                 }

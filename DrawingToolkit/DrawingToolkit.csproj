@@ -46,6 +46,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Command\AddDrawableCommand.cs" />
+    <Compile Include="Command\ChangeBackgroundCommand.cs" />
+    <Compile Include="Command\ChangeBorderCommand.cs" />
+    <Compile Include="Command\ChangeColorCommand.cs" />
     <Compile Include="Command\CompositeCommand.cs" />
     <Compile Include="Command\DecompositeCommand.cs" />
     <Compile Include="Command\DrawableCommand.cs" />
@@ -145,6 +148,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="Main.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
